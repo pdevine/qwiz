@@ -47,10 +47,34 @@ void display_list(struct node *head_node)
     printf("NULL\n");
 }
 
+struct node *nth_to_last_node(int nth, struct node *head_node)
+{
+    // O(1) space
+    // O(n) time
+
+    struct node *current_node = head_node;
+    struct node *runner_node = head_node;
+
+    while(current_node != NULL)
+    {
+        if(nth >= 0)
+            nth--;
+        else
+            runner_node = runner_node->next;
+        current_node = current_node->next;
+    }
+
+    if(nth == -1)
+        return runner_node;
+
+    return NULL;
+
+}
+
 void delete_duplicates(struct node *head_node)
 {
     // O(1) space
-    // O(N^2) time
+    // O(n^2) time
 
     if(head_node == NULL)
         return;
@@ -93,6 +117,12 @@ int main()
     display_list(head_node);
     delete_duplicates(head_node);
     display_list(head_node);
+
+    my_node = nth_to_last_node(2, head_node);
+    printf("nth to last: %d\n", my_node->data);
+
+    my_node = nth_to_last_node(1, head_node);
+    printf("nth to last: %d\n", my_node->data);
 
 }
 
